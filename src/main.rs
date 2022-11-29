@@ -1,21 +1,23 @@
+use glib::clone;
+use gtk::glib;
 use gtk::prelude::*;
 
-fn main() {
-    let application =
-        gtk::Application::new(Some("my_app"), Default::default());
-    application.connect_activate(build_ui);
-    application.run();
+const APP_ID: &str = "Rust UI App";
+
+fn on_activate(application: &gtk::Application) {
+    let window = gtk::ApplicationWindow::new(application);
+    let close_button = gtk::Button::with_label("Close");
+    let main_stack = gtk::Stack::builder().name("Stack 1").height_request(600).build();
+    close_button.connect_clicked(clone!(@weak window => move |_| window.close()));
+    window.set_child(Some(&main_stack));
+    window.set_child(Some(&close_button));
+    window.present();
 }
 
-fn build_ui(application: &gtk::Application) {
-    let window = gtk::ApplicationWindow::new(application);
-
-    window.set_title("some app");
-    window.set_default_size(350, 70);
-
-    let button = gtk::Button::with_label("Click me!");
-
-    window.set_child(Some(&button));
-
-    window.show();
+fn main() {
+    let app = gtk::Application::builder()
+        .application_id(APP_ID)
+        .build();
+    app.connect_activate(on_activate);
+    app.run();
 }

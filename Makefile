@@ -1,16 +1,5 @@
 prepare:
-	sudo apt update && sudo apt install \
-    libwebkit2gtk-4.0-dev \
-    build-essential \
-    curl \
-    wget \
-    libglib2.0-dev \
-    libssl-dev \
-    libgtk-3-dev \
-    libappindicator3-dev \
-    librsvg2-dev \
-    libappindicator-dev \
-    libgdk3.0-cil libatk1.0-dev
+	sudo apt update && sudo apt install libgtk-4-dev build-essential
 	rustup update \
     rustup update nightly \
 #	rustup target add wasm32-unknown-unknown --toolchain nightly
